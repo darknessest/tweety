@@ -5,6 +5,7 @@ from .exceptions_ import InvalidCredentials, DeniedLogin, ActionRequired
 from .builder import FlowData
 from .types.n_types import Cookies
 from .utils import find_objects
+from loguru import logger
 
 
 class AuthMethods:
@@ -143,6 +144,8 @@ class AuthMethods:
 
         while not self.logged_in:
             _login_payload = self._login_flow.get(self._login_flow_state, json_=self._last_json, username=_username, password=_password, extra=_extra)
+            logger.debug("Login Payload: {}", self._login_flow_state)
+            logger.debug("Login Payload: {}",self._last_json)
             response = self.request.login(self._login_url, _payload=_login_payload)
             self._last_json = response.json()
 
