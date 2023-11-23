@@ -144,11 +144,11 @@ class AuthMethods:
 
         while not self.logged_in:
             _login_payload = self._login_flow.get(self._login_flow_state, json_=self._last_json, username=_username, password=_password, extra=_extra)
-            response = self.request.login(self._login_url, _payload=_login_payload)
-            self._last_json = response.json()
             logger.debug("Login flow state: {}", self._login_flow_state)
             logger.debug("Login payload: {}", _login_payload)
             logger.debug("Last json: {}",self._last_json)
+            response = self.request.login(self._login_url, _payload=_login_payload)
+            self._last_json = response.json()
 
             if self._last_json.get('status') != "success":
                 raise DeniedLogin(response=response, message=response.text)
