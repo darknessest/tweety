@@ -21,7 +21,7 @@ class Session:
             with open(self.session_file_path, "r") as f:
                 session_data = json.load(f)
                 self.cookies = session_data['cookies']
-                self.user = session_data['user']
+                self.user = session_data.get('user')
 
             self.logged_in = True
 
